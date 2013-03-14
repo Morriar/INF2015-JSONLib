@@ -1,6 +1,17 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2013 Alexandre Terrasa <alexandre@moz-code.org>.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package jsonparsing;
 
@@ -8,35 +19,30 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
- *
- * @author morriar
+ * Generate a JSON String
+ * Build an order manually
  */
 public class Exercice4 {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws Exception {
-        
-        // On crée la commande
-        JSONObject commande = new JSONObject();
-        commande.accumulate("id", "1321033823");
-        commande.accumulate("total", 9.9);
-        commande.accumulate("date", "11/11/2011");
-        commande.accumulate("validated", true);
-        
-        // On prépare le cd à insérer dans la commande
+        // Build the order object
+        JSONObject order = new JSONObject();
+        order.accumulate("id", "1321033823");
+        order.accumulate("total", 9.9);
+        order.accumulate("date", "11/11/2011");
+        order.accumulate("validated", true);
+
+        // Build another object for representing the album
         JSONObject album = new JSONObject();
         album.accumulate("id", "1");
         album.accumulate("title", "Hide your heart");
-        
-        // On met l'objet album dans un tableau json
+
+        // Build a JSON array of albums
         JSONArray albums = new JSONArray();
         albums.add(album);
-        // puis on l'ajoute à l'objet commande
-        commande.accumulate("albums", albums);
-               
-        // Finallement on affiche le JSON.
-        System.out.println(commande);
+
+        // Add the array to the order
+        order.accumulate("albums", albums);
+
+        System.out.println(order);
     }
 }

@@ -1,6 +1,17 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2013 Alexandre Terrasa <alexandre@moz-code.org>.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package jsonparsing;
 
@@ -9,46 +20,38 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
- *
- * @author morriar
+ * Generate JSON
+ * Build a full order from catalog
  */
 public class Exercice5 {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws Exception {
-         // On récupère le fichier au format string
         String json = FileReader.loadFileIntoString("json/catalog.json");
-        // On récupère la liste des cds (un JSONArray)
-        JSONArray cds = JSONArray.fromObject(json);
+        JSONArray catalog = JSONArray.fromObject(json);
 
-        // On prépare la liste des cds à inclure dans la commande
+        // Build the album list to add in the order
         JSONArray albums = new JSONArray();
-        
         double total = 0.0;
-        for(int i = 0; i < cds.size(); i++) {
-            JSONObject cd = cds.getJSONObject(i);
-            
-            if(cd.getString("id").equals("1") || cd.getString("id").equals("2") || cd.getString("id").equals("4")) {
-                   total += cd.getDouble("price");
-                   albums.add(cd);
+        for(int i = 0; i < catalog.size(); i++) {
+            JSONObject album = catalog.getJSONObject(i);
+            if(album.getDouble("price") < 10.0) {
+                   total += album.getDouble("price");
+                   albums.add(album);
             }
         }
-        
-        // Uniquement utile pour formatter le total avec 2 chiffres après la virgule
+
+        // Format the price
         DecimalFormat format = new DecimalFormat();
         format.setMinimumFractionDigits(2);
         String totalStr = format.format(total);
 
-        // On crée la commande
-        JSONObject commande = new JSONObject();
-        commande.accumulate("id", "1321033823");
-        commande.accumulate("total", totalStr);
-        commande.accumulate("date", "11/11/2011");
-        commande.accumulate("validated", true);
-        commande.accumulate("albums", albums);
-                
-        System.out.println(commande);
+        // Build the order
+        JSONObject order = new JSONObject();
+        order.accumulate("id", "1321033823");
+        order.accumulate("total", totalStr);
+        order.accumulate("date", "11/11/2011");
+        order.accumulate("validated", true);
+        order.accumulate("albums", albums);
+
+        System.out.println(order);
     }
 }

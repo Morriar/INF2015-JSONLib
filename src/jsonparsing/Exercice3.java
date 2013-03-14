@@ -1,6 +1,17 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2013 Alexandre Terrasa <alexandre@moz-code.org>.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package jsonparsing;
 
@@ -8,33 +19,23 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
- *
- * @author morriar
+ * Iterate over a JSON array
+ * Display in stock albums
  */
 public class Exercice3 {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws Exception {
-        // On récupère le fichier au format string
         String json = FileReader.loadFileIntoString("json/catalog.json");
-        // On récupère la liste des cds (un JSONArray)
-        JSONArray cds = JSONArray.fromObject(json);
+        JSONArray albums = JSONArray.fromObject(json);
 
         System.out.println("Prix des albums en stock:");
         int cpt = 0;
-        for(int i = 0; i < cds.size(); i++) {
-            JSONObject cd = cds.getJSONObject(i);
-            
-            if(cd.getBoolean("instock")) {
+        for(int i = 0; i < albums.size(); i++) {
+            JSONObject album = albums.getJSONObject(i);
+            if(album.getBoolean("instock")) {
                    cpt += 1;
-                   System.out.println(" - " + cd.getString("title") + ": " + cd.getDouble("price") + "$");
+                   System.out.println(" * " + album.getString("title") + ": " + album.getDouble("price") + "$");
             }
         }
-        
-        // On affiche le nombre de CDs dans le catalogue
-        System.out.println("Il y a " + cpt + " CD(s) en stock");
-        
+        System.out.println("Il y a " + cpt + " CD(s) en stock.");
     }
 }

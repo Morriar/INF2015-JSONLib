@@ -1,6 +1,17 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2013 Alexandre Terrasa <alexandre@moz-code.org>.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package jsonparsing;
 
@@ -8,34 +19,23 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
- *
- * @author morriar
+ * Iterate over a JSON array
+ * Display albums released since 1990
  */
 public class Exercice2 {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws Exception {
-        // On récupère le fichier au format string
         String json = FileReader.loadFileIntoString("json/catalog.json");
-        // On récupère la liste des cds (un JSONArray)
-        JSONArray cds = JSONArray.fromObject(json);
+        JSONArray albums = JSONArray.fromObject(json);
 
         System.out.println("Albums parus depuis 1990:");
         int cpt = 0;
-        for(int i = 0; i < cds.size(); i++) {
-            // On récupère l'objet à l'index i
-            JSONObject cd = cds.getJSONObject(i);
-            
-            if(cd.getInt("year") >= 1990) {
+        for(int i = 0; i < albums.size(); i++) {
+            JSONObject album = albums.getJSONObject(i);
+            if(album.getInt("year") >= 1990) {
                    cpt += 1;
-                   System.out.println(" - " + cd.getString("title"));
+                   System.out.println(" * " + album.getString("title"));
             }
         }
-        
-        // On affiche le nombre de CDs dans le catalogue
-        System.out.println("Il y a " + cds.size() + " CD(s) dans le catalogues dont " + cpt + " parus depuis 1990");
-        
+        System.out.println("Il y a " + albums.size() + " CD(s) dans le catalogue dont " + cpt + " paru(s) depuis 1990.");
     }
 }
