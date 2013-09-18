@@ -25,9 +25,8 @@ import net.sf.json.JSONObject;
  */
 public class Exercice5 {
     public static void main(String[] args) throws Exception {
-        String json = FileReader.loadFileIntoString("json/catalog.json");
-        JSONObject catalog = JSONObject.fromObject(json);
-        JSONArray cds = catalog.getJSONArray("albums");
+        String json = FileReader.loadFileIntoString("json/catalog.json", "utf-8");
+        JSONArray cds = JSONArray.fromObject(json);
 
         // Build the album list to add in the order
         JSONArray albums = new JSONArray();

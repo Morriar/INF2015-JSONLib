@@ -24,9 +24,8 @@ import net.sf.json.JSONObject;
  */
 public class Exercice3 {
     public static void main(String[] args) throws Exception {
-        String json = FileReader.loadFileIntoString("json/catalog.json");
-        JSONObject catalog = JSONObject.fromObject(json);
-        JSONArray albums = catalog.getJSONArray("albums");
+        String json = FileReader.loadFileIntoString("json/catalog.json", "utf-8");
+        JSONArray albums = JSONArray.fromObject(json);
 
         System.out.println("Prix des albums en stock:");
         int cpt = 0;

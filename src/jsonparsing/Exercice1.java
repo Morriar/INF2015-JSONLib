@@ -16,7 +16,6 @@
 package jsonparsing;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 /**
  * Parse a JSONArray
@@ -24,9 +23,8 @@ import net.sf.json.JSONObject;
  */
 public class Exercice1 {
     public static void main(String[] args) throws Exception {
-        String json = FileReader.loadFileIntoString("json/catalog.json");
-        JSONObject catalog = JSONObject.fromObject(json);
-        JSONArray albums = catalog.getJSONArray("albums");
+        String json = FileReader.loadFileIntoString("json/catalog.json", "utf-8");
+        JSONArray albums = JSONArray.fromObject(json);
         System.out.println("Il y a " + albums.size() + " CD(s) dans le catalogue.");
 
 
