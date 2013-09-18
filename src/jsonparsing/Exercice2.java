@@ -25,7 +25,8 @@ import net.sf.json.JSONObject;
 public class Exercice2 {
     public static void main(String[] args) throws Exception {
         String json = FileReader.loadFileIntoString("json/catalog.json");
-        JSONArray albums = JSONArray.fromObject(json);
+        JSONObject catalog = JSONObject.fromObject(json);
+        JSONArray albums = catalog.getJSONArray("albums");
 
         System.out.println("Albums parus depuis 1990:");
         int cpt = 0;

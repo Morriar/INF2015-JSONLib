@@ -26,13 +26,14 @@ import net.sf.json.JSONObject;
 public class Exercice5 {
     public static void main(String[] args) throws Exception {
         String json = FileReader.loadFileIntoString("json/catalog.json");
-        JSONArray catalog = JSONArray.fromObject(json);
+        JSONObject catalog = JSONObject.fromObject(json);
+        JSONArray cds = catalog.getJSONArray("albums");
 
         // Build the album list to add in the order
         JSONArray albums = new JSONArray();
         double total = 0.0;
-        for(int i = 0; i < catalog.size(); i++) {
-            JSONObject album = catalog.getJSONObject(i);
+        for(int i = 0; i < cds.size(); i++) {
+            JSONObject album = cds.getJSONObject(i);
             if(album.getDouble("price") < 10.0) {
                    total += album.getDouble("price");
                    albums.add(album);

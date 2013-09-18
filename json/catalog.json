@@ -1,4 +1,5 @@
-[
+{
+    "albums": [
         {
             "id": "1",
             "title": "Hide your heart",
@@ -39,4 +40,5 @@
             "price": 10.9,
             "year": 1998
         }
- ]
+    ]
+}
